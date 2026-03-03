@@ -56,5 +56,3 @@ class Transaction {
         return list;
     }
 }
-
-MicroBank.main(null);
