@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 class MicroBank {
-    // input file is "input.data"
     double balance = 0.0;
 
     class Transaction {
@@ -25,8 +24,8 @@ class MicroBank {
 
     public static void main(String[] args) {
         MicroBank mb = new MicroBank();
-        ArrayList<Transaction> xactions = mb.readData("input.data");
-        for (Transaction t : xactions) {
+        ArrayList<Transaction> transactions = mb.readData("input.data");
+        for (Transaction t : transactions) {
             if (t.type.equals("withdrawal")) {
                 mb.balance -= t.amount;
             } else if (t.type.equals("deposit")) {
