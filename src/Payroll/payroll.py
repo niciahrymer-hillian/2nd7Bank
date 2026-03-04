@@ -5,6 +5,7 @@ def read_data(file_name):
         csv_reader = csv.reader(file)
         data = [row for row in csv_reader]
     return data
+    # data is a list of lists, where each inner list represents a row from the CSV file
 
 def calculate_payroll(data):
     payroll = []
