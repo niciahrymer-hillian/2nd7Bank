@@ -44,7 +44,7 @@ def main():
             input_data = read_data('input.data')
             payroll = calculate_payroll(input_data)
             print_payroll(payroll)
-            # write_output('output.data', payroll)  # Uncomment to write output to file
+            write_output('output.data', payroll)  # Write output to file
         elif choice == '2':
             employee_data = interactive_input()
             append_data('input.data', employee_data)
