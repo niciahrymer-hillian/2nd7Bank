@@ -38,7 +38,8 @@ def main():
         print("1. Read data from file")
         print("2. Enter data interactively")
         print("3. Calculate total net pay")
-        print("4. Exit")
+        print("4. Review paycheck")
+        print("5. Exit")
         choice = input("Choose an option: ")
 
         if choice == '1':
@@ -56,8 +57,21 @@ def main():
             input_data = read_data('input.data')
             payroll = calculate_payroll(input_data)
             total_net = calculate_total_net_pay(payroll)
-            print(f"Total Net Pay: {total_net:.2f}")
+            print(f"Total Net Pay: {total_net:.2f}") #Print total net pay to console with 2 decimal places
         elif choice == '4':
+            employee_name = input("Enter the name of the employee: ").strip()
+            input_data = read_data('input.data')
+            payroll = calculate_payroll(input_data)
+            found = False
+            for name, total_pay, taxes, net_pay in payroll:
+                if name.lower() == employee_name.lower():
+                    print(f"{'Name':<20} {'Total Pay':<15} {'Taxes':<10} {'Net Pay':<10}")
+                    print(f"{name:<20} {total_pay:<15.2f} {taxes:<10.2f} {net_pay:<10.2f}")
+                    found = True
+                    break
+            if not found:
+                print(f"Employee '{employee_name}' not found.")
+        elif choice == '5':
             break
         else:
             print("Invalid option. Please try again.")
@@ -84,6 +98,18 @@ def print_payroll(payroll):
         print(f"{name:<20} {total_pay:<15.2f} {taxes:<10.2f} {net_pay:<10.2f}")
     total_net = calculate_total_net_pay(payroll)
     print(f"\nTotal Net Pay: {total_net:.2f}")
+
+def calculate_paycheck(total_paycheck):
+    timecard = read_data('input.data')
+    for row in timecard[1:]:  # Skip header
+        name, hours_worked, hourly_rate = row
+        hours_worked = float(hours_worked)
+        hourly_rate = float(hourly_rate)
+        total_pay = hours_worked * hourly_rate
+        taxes = total_pay * 0.2  # Assuming a flat tax rate of 20%
+        net_pay = total_pay - taxes
+        total_paycheck += net_pay
+    return total_paycheck    
 
 def write_output(file_name, payroll):
     with open(file_name, 'w', newline='') as file:
