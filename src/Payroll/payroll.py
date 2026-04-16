@@ -37,7 +37,8 @@ def main():
     while True:
         print("1. Read data from file")
         print("2. Enter data interactively")
-        print("3. Exit")
+        print("3. Calculate total net pay")
+        print("4. Exit")
         choice = input("Choose an option: ")
 
         if choice == '1':
@@ -52,6 +53,11 @@ def main():
             payroll = calculate_payroll(input_data)
             print_payroll(payroll)
         elif choice == '3':
+            input_data = read_data('input.data')
+            payroll = calculate_payroll(input_data)
+            total_net = calculate_total_net_pay(payroll)
+            print(f"Total Net Pay: {total_net:.2f}")
+        elif choice == '4':
             break
         else:
             print("Invalid option. Please try again.")
@@ -69,16 +75,15 @@ def calculate_payroll(data):
         payroll.append((name, total_pay, taxes, net_pay))
     return payroll
 
-def input_data(self, employee_name, hours_worked, hourly_rate):
-        self.employee_name = employee_name
-        self.hours_worked = hours_worked
-        self.hourly_rate = hourly_rate
-        return self.employee_name, self.hours_worked, self.hourly_rate
+def calculate_total_net_pay(payroll):
+    return sum(net_pay for _, _, _, net_pay in payroll)
 
 def print_payroll(payroll):
     print(f"{'Name':<20} {'Total Pay':<15} {'Taxes':<10} {'Net Pay':<10}")
     for name, total_pay, taxes, net_pay in payroll:
         print(f"{name:<20} {total_pay:<15.2f} {taxes:<10.2f} {net_pay:<10.2f}")
+    total_net = calculate_total_net_pay(payroll)
+    print(f"\nTotal Net Pay: {total_net:.2f}")
 
 def write_output(file_name, payroll):
     with open(file_name, 'w', newline='') as file:
